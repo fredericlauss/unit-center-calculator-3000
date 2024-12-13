@@ -21,65 +21,74 @@ import {
 import { ChangeEvent, useState } from "react";
 
 export default function Home() {
-  const [totalRanks, setTotalRanks] = useState(0); // C2
-  const [totalColumns, setTotalColumns] = useState(0); // C3
-  const [minisOnLastRank, setMinisOnLastRank] = useState(0); // C4
+  const [totalRanks, setTotalRanks] = useState(0); 
+  const [totalColumns, setTotalColumns] = useState(0); 
+  const [minisOnLastRank, setMinisOnLastRank] = useState(0); 
 
-  // Rank-related calculations
-  const totalRankWeight = (totalRanks - 1) * totalColumns + minisOnLastRank; // C8
-  const fullRankWeight = totalColumns; // C9
-  const partialRankWeight = minisOnLastRank; // C10
-  const incompleteRanks = minisOnLastRank < totalColumns ? 1 : 0; // C12
-  const fullRanks = totalRanks - incompleteRanks; // C11
-  const totalRankSum = (totalRanks * (totalRanks + 1)) / 2; // C14
-  const fullRankSum = (fullRanks * (fullRanks + 1)) / 2; // C13
-  const partialRankSum = totalRankSum - fullRankSum; // C15
+  const SQUARE_SIZE = 10;
 
-  // Column-related calculations
-  const totalColumnWeight =
-    totalColumns * totalRanks + (minisOnLastRank - totalColumns); // F8
-  const fullColumnWeight = totalRanks; // F9
-  const partialColumnWeight = totalRanks - 1; // F10
-  const incompleteColumns = totalColumns - minisOnLastRank; // F11
-  const completeColumns = totalColumns - incompleteColumns; // F12
-  const completeColumnSum = (completeColumns * (completeColumns + 1)) / 2; // F13
-  const totalColumnSum = (totalColumns * (totalColumns + 1)) / 2; // F14
-  const partialColumnSum = totalColumnSum - completeColumnSum; // F15
-
-  // Barycenter calculations
+  // Dimensions des rectangles
+  const fullRectangleWidth = totalColumns;
+  const fullRectangleHeight = totalRanks - 1;
+  const partialRectangleWidth = minisOnLastRank;
+  const partialRectangleHeight = minisOnLastRank > 0 ? 1 : 0;
+  
+  // Barycentre du rectangle complet
+  const barycenterFullRectangleRank = fullRectangleHeight / 2;
+  const barycenterFullRectangleColumn = fullRectangleWidth / 2;
+  
+  // Barycentre du rectangle partiel (dernier rang)
+  const barycenterPartialRectangleRank = totalRanks - 0.5;
+  const barycenterPartialRectangleColumn = partialRectangleWidth / 2;
+  
+  // Poids des rectangles
+  const weightFullRectangle = fullRectangleHeight * fullRectangleWidth;
+  const weightPartialRectangle = partialRectangleHeight * partialRectangleWidth;
+  
+  // Barycentre global
   const barycenterPositionRank =
-    (fullColumnWeight * completeColumnSum +
-      partialColumnWeight * partialColumnSum) /
-    totalColumnWeight; // Position along the rank
+    (barycenterFullRectangleRank * weightFullRectangle +
+      barycenterPartialRectangleRank * weightPartialRectangle) /
+    (weightFullRectangle + weightPartialRectangle);
+  
   const barycenterPositionColumn =
-    (fullRankWeight * fullRankSum +
-      partialRankWeight * partialRankSum) /
-    totalRankWeight; // Position along the column
+    (barycenterFullRectangleColumn * weightFullRectangle +
+      barycenterPartialRectangleColumn * weightPartialRectangle) /
+    (weightFullRectangle + weightPartialRectangle);
+  
+  // Conversion en pixels
+  const barycenterX = barycenterPositionColumn * SQUARE_SIZE;
+  const barycenterY = barycenterPositionRank * SQUARE_SIZE;
+  
+  console.log("Barycenter (Rank):", barycenterPositionRank);
+  console.log("Barycenter (Column):", barycenterPositionColumn);
+   
 
-  const createSchema = () => {
-    const schema = [];
-
-    // Boucle pour chaque rang
-    for (let i = 0; i < totalRanks; i++) {
-      // Dernier rang
-      const isLastRank = i === totalRanks - 1;
-      const columnsInRank = isLastRank ? minisOnLastRank : totalColumns;
-
-      // Ajouter les colonnes dans un rang
-      schema.push(
-        <div key={i} className="flex flex-row justify-start gap-0">
-          {Array.from({ length: columnsInRank }).map((_, j) => (
-            <div
-              key={`${i}-${j}`}
-              className="w-6 h-6 bg-gray-500 shadow-inner border-[1px] border-gray-300"
-            />
-          ))}
-        </div>
-      );
-    }
-
-    return schema;
-  };
+    const createSchema = () => {
+      const schema = [];
+  
+      for (let i = 0; i < totalRanks; i++) {
+        const isLastRank = i === totalRanks - 1;
+        const columnsInRank = isLastRank ? minisOnLastRank : totalColumns;
+  
+        schema.push(
+          <div key={i} className="flex flex-row justify-start">
+            {Array.from({ length: columnsInRank }).map((_, j) => (
+              <div
+                key={`${i}-${j}`}
+                style={{
+                  width: `${SQUARE_SIZE}px`,
+                  height: `${SQUARE_SIZE}px`,
+                }}
+                className="bg-gray-300 shadow-inner border-[1px] border-gray-500"
+              />
+            ))}
+          </div>
+        );
+      }
+  
+      return schema;
+    };
 
   return (
     <div className="py-[75px]">
@@ -94,7 +103,7 @@ export default function Home() {
           </CardHeader>
           <CardContent>
             <div>
-              <Label>Total number of ranks (C2):</Label>
+              <Label>Total number of ranks:</Label>
               <Input
                 type="number"
                 value={totalRanks}
@@ -104,7 +113,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <Label>Total number of columns (C3):</Label>
+              <Label>Total number of columns:</Label>
               <Input
                 type="number"
                 value={totalColumns}
@@ -114,7 +123,7 @@ export default function Home() {
               />
             </div>
             <div>
-              <Label>Number of minis on the last rank (C4):</Label>
+              <Label>Number of minis on the last rank:</Label>
               <Input
                 type="number"
                 value={minisOnLastRank}
@@ -154,12 +163,22 @@ export default function Home() {
         </Card>
 
         {/* Unit schema */}
-        <Card className="basis-1/4 grow mt-0">
+        <Card className="basis-1/4 grow mt-0 relative">
           <CardHeader>
             <CardTitle>Schema</CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-col items-start gap-0">{createSchema()}</div>
+          <CardContent >
+            <div className="relative w-fit">
+              <div className="flex flex-col items-start w-fit">{createSchema()}</div>
+              <div
+                  className="absolute bg-red-500 w-4 h-4 rounded-full"
+                  style={{
+                    top: `${barycenterY - 8}px`,
+                    right: `${barycenterX - 8}px`,
+                  }}
+              ></div>
+            </div>
+
           </CardContent>
         </Card>
 
@@ -178,24 +197,24 @@ export default function Home() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>Total rank weight</TableCell>
-                  <TableCell>{totalRankWeight}</TableCell>
+                  {/* <TableCell>Total rank weight</TableCell>
+                  <TableCell>{totalRankWeight}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Full rank weight</TableCell>
-                  <TableCell>{fullRankWeight}</TableCell>
+                  {/* <TableCell>Full rank weight</TableCell>
+                  <TableCell>{fullRankWeight}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Partial rank weight</TableCell>
-                  <TableCell>{partialRankWeight}</TableCell>
+                  {/* <TableCell>Partial rank weight</TableCell>
+                  <TableCell>{partialRankWeight}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Full ranks</TableCell>
-                  <TableCell>{fullRanks}</TableCell>
+                  {/* <TableCell>Full ranks</TableCell>
+                  <TableCell>{fullRanks}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Incomplete ranks</TableCell>
-                  <TableCell>{incompleteRanks}</TableCell>
+                  {/* <TableCell>Incomplete ranks</TableCell>
+                  <TableCell>{incompleteRanks}</TableCell> */}
                 </TableRow>
               </TableBody>
             </Table>
@@ -217,24 +236,24 @@ export default function Home() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell>Total column weight</TableCell>
-                  <TableCell>{totalColumnWeight}</TableCell>
+                  {/* <TableCell>Total column weight</TableCell>
+                  <TableCell>{totalColumnWeight}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Full column weight</TableCell>
-                  <TableCell>{fullColumnWeight}</TableCell>
+                  {/* <TableCell>Full column weight</TableCell>
+                  <TableCell>{fullColumnWeight}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Partial column weight</TableCell>
-                  <TableCell>{partialColumnWeight}</TableCell>
+                  {/* <TableCell>Partial column weight</TableCell>
+                  <TableCell>{partialColumnWeight}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Incomplete columns</TableCell>
-                  <TableCell>{incompleteColumns}</TableCell>
+                  {/* <TableCell>Incomplete columns</TableCell>
+                  <TableCell>{incompleteColumns}</TableCell> */}
                 </TableRow>
                 <TableRow>
-                  <TableCell>Complete columns</TableCell>
-                  <TableCell>{completeColumns}</TableCell>
+                  {/* <TableCell>Complete columns</TableCell>
+                  <TableCell>{completeColumns}</TableCell> */}
                 </TableRow>
               </TableBody>
             </Table>
