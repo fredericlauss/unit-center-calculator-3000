@@ -2,6 +2,16 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+
 import { ChangeEvent, useState } from "react";
 
 export default function Home() {
@@ -76,17 +86,92 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="mt-6">
-        <h2 className="text-lg font-bold mb-2">Results</h2>
-        <p>Total rank weight: {totalRankWeight}</p>
-        <p>Full rank weight: {fullRankWeight}</p>
-        <p>Partial rank weight: {partialRankWeight}</p>
-        <p>Barycenter position along ranks: {barycenterPositionRank.toFixed(2)}</p>
-        <p>
-          Barycenter position along columns:{" "}
-          {barycenterPositionColumn.toFixed(2)}
-        </p>
-      </div>
+        {/* Table for Rows */}
+        <Table className="mt-6">
+        <TableCaption>Row Data</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Property</TableHead>
+            <TableHead>Value</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Total rank weight</TableCell>
+            <TableCell>{totalRankWeight}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Full rank weight</TableCell>
+            <TableCell>{fullRankWeight}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Partial rank weight</TableCell>
+            <TableCell>{partialRankWeight}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Full ranks</TableCell>
+            <TableCell>{fullRanks}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Incomplete ranks</TableCell>
+            <TableCell>{incompleteRanks}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+
+      {/* Table for Columns */}
+      <Table className="mt-6">
+        <TableCaption>Column Data</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Property</TableHead>
+            <TableHead>Value</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Total column weight</TableCell>
+            <TableCell>{totalColumnWeight}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Full column weight</TableCell>
+            <TableCell>{fullColumnWeight}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Partial column weight</TableCell>
+            <TableCell>{partialColumnWeight}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Incomplete columns</TableCell>
+            <TableCell>{incompleteColumns}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Complete columns</TableCell>
+            <TableCell>{completeColumns}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+
+      {/* Barycenter Coordinates */}
+      <Table className="mt-6">
+        <TableCaption>Barycenter Coordinates</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Property</TableHead>
+            <TableHead>Value</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell>Rank coordinate</TableCell>
+            <TableCell>{barycenterPositionRank.toFixed(2)}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Column coordinate</TableCell>
+            <TableCell>{barycenterPositionColumn.toFixed(2)}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   );
 }
