@@ -170,7 +170,7 @@ export default function Home() {
                   className="absolute bg-red-500 w-4 h-4 rounded-full"
                   style={{
                     top: `${barycenterY - 8}px`,
-                    right: `${barycenterX - 8}px`,
+                    left: `${barycenterX - 8}px`,
                   }}
               ></div>
             </div>
