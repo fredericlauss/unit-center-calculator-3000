@@ -51,127 +51,131 @@ export default function Home() {
     totalRankWeight; // Position along the column
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">Barycenter Calculator</h1>
-      <div className="grid grid-cols-1 gap-4">
-        <div>
-          <Label>Total number of ranks (C2):</Label>
-          <Input
-            type="number"
-            value={totalRanks}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setTotalRanks(parseInt(e.target.value) || 0)
-            }
-          />
-        </div>
-        <div>
-          <Label>Total number of columns (C3):</Label>
-          <Input
-            type="number"
-            value={totalColumns}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setTotalColumns(parseInt(e.target.value) || 0)
-            }
-          />
-        </div>
-        <div>
-          <Label>Number of minis on the last rank (C4):</Label>
-          <Input
-            type="number"
-            value={minisOnLastRank}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setMinisOnLastRank(parseInt(e.target.value)  || 0)
-            }
-          />
-        </div>
-      </div>
+    <div className="py-[75px]">
+      <div className="mx-auto max-w-[1350px] px-[4vw] box-border">
+        <h1 className="text-xl font-bold mb-4">Unit center calculator 3000</h1>
+        <div className="container mx-auto p-4">
+          <div className="grid grid-cols-1 gap-4">
+            <div>
+              <Label>Total number of ranks (C2):</Label>
+              <Input
+                type="number"
+                value={totalRanks}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setTotalRanks(parseInt(e.target.value) || 0)
+                }
+              />
+            </div>
+            <div>
+              <Label>Total number of columns (C3):</Label>
+              <Input
+                type="number"
+                value={totalColumns}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setTotalColumns(parseInt(e.target.value) || 0)
+                }
+              />
+            </div>
+            <div>
+              <Label>Number of minis on the last rank (C4):</Label>
+              <Input
+                type="number"
+                value={minisOnLastRank}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setMinisOnLastRank(parseInt(e.target.value)  || 0)
+                }
+              />
+            </div>
+          </div>
 
-        {/* Table for Rows */}
+          {/* Table for Rows */}
+          <Table className="mt-6">
+          <TableCaption>Row Data</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Property</TableHead>
+              <TableHead>Value</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Total rank weight</TableCell>
+              <TableCell>{totalRankWeight}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Full rank weight</TableCell>
+              <TableCell>{fullRankWeight}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Partial rank weight</TableCell>
+              <TableCell>{partialRankWeight}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Full ranks</TableCell>
+              <TableCell>{fullRanks}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Incomplete ranks</TableCell>
+              <TableCell>{incompleteRanks}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+
+        {/* Table for Columns */}
         <Table className="mt-6">
-        <TableCaption>Row Data</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Property</TableHead>
-            <TableHead>Value</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell>Total rank weight</TableCell>
-            <TableCell>{totalRankWeight}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Full rank weight</TableCell>
-            <TableCell>{fullRankWeight}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Partial rank weight</TableCell>
-            <TableCell>{partialRankWeight}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Full ranks</TableCell>
-            <TableCell>{fullRanks}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Incomplete ranks</TableCell>
-            <TableCell>{incompleteRanks}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+          <TableCaption>Column Data</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Property</TableHead>
+              <TableHead>Value</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Total column weight</TableCell>
+              <TableCell>{totalColumnWeight}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Full column weight</TableCell>
+              <TableCell>{fullColumnWeight}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Partial column weight</TableCell>
+              <TableCell>{partialColumnWeight}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Incomplete columns</TableCell>
+              <TableCell>{incompleteColumns}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Complete columns</TableCell>
+              <TableCell>{completeColumns}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
 
-      {/* Table for Columns */}
-      <Table className="mt-6">
-        <TableCaption>Column Data</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Property</TableHead>
-            <TableHead>Value</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell>Total column weight</TableCell>
-            <TableCell>{totalColumnWeight}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Full column weight</TableCell>
-            <TableCell>{fullColumnWeight}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Partial column weight</TableCell>
-            <TableCell>{partialColumnWeight}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Incomplete columns</TableCell>
-            <TableCell>{incompleteColumns}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Complete columns</TableCell>
-            <TableCell>{completeColumns}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-
-      {/* Barycenter Coordinates */}
-      <Table className="mt-6">
-        <TableCaption>Barycenter Coordinates</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Property</TableHead>
-            <TableHead>Value</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <TableRow>
-            <TableCell>Rank coordinate</TableCell>
-            <TableCell>{barycenterPositionRank.toFixed(2)}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Column coordinate</TableCell>
-            <TableCell>{barycenterPositionColumn.toFixed(2)}</TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+        {/* Barycenter Coordinates */}
+        <Table className="mt-6">
+          <TableCaption>Barycenter Coordinates</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Property</TableHead>
+              <TableHead>Value</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>Rank coordinate</TableCell>
+              <TableCell>{barycenterPositionRank.toFixed(2)}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Column coordinate</TableCell>
+              <TableCell>{barycenterPositionColumn.toFixed(2)}</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+      </div>
     </div>
   );
 }
