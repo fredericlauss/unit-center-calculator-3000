@@ -58,11 +58,7 @@ export default function Home() {
   
   // Conversion en pixels
   const barycenterX = barycenterPositionColumn * SQUARE_SIZE;
-  const barycenterY = barycenterPositionRank * SQUARE_SIZE;
-  
-  console.log("Barycenter (Rank):", barycenterPositionRank);
-  console.log("Barycenter (Column):", barycenterPositionColumn);
-   
+  const barycenterY = barycenterPositionRank * SQUARE_SIZE; 
 
     const createSchema = () => {
       const schema = [];
@@ -93,13 +89,13 @@ export default function Home() {
   return (
     <div className="py-[75px]">
       <div className="mx-auto max-w-[1350px] box-border">
-        <div className="flex-1 p-8 pt-6 flex flex-row flex-wrap gap-[25px]">
+        <div className="flex-1 p-4 flex flex-row flex-wrap gap-[15px]">
         <h1 className="text-xl font-bold mb-4 basis-[100%]">Unit center calculator 3000</h1>
 
         <Card className="basis-1/4 grow mt-0">
           <CardHeader>
-            <CardTitle>Create project</CardTitle>
-            <CardDescription>Deploy your new project in one-click.</CardDescription>
+            <CardTitle>Barycenter Calculator</CardTitle>
+            <CardDescription>Input your unit dimensions</CardDescription>
           </CardHeader>
           <CardContent>
             <div>
@@ -182,81 +178,48 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        {/* Table for Rows */}
+        {/* Table for Details */}
         <Card className="basis-1/3 grow mt-0">
           <CardHeader>
-            <CardTitle>Row Data</CardTitle>
+            <CardTitle>Details</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Property</TableHead>
-                  <TableHead>Value</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  {/* <TableCell>Total rank weight</TableCell>
-                  <TableCell>{totalRankWeight}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Full rank weight</TableCell>
-                  <TableCell>{fullRankWeight}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Partial rank weight</TableCell>
-                  <TableCell>{partialRankWeight}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Full ranks</TableCell>
-                  <TableCell>{fullRanks}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Incomplete ranks</TableCell>
-                  <TableCell>{incompleteRanks}</TableCell> */}
-                </TableRow>
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-
-        {/* Table for Columns */}
-        <Card className="basis-1/3 grow mt-0">
-          <CardHeader>
-            <CardTitle>Column Data</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Property</TableHead>
-                  <TableHead>Value</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  {/* <TableCell>Total column weight</TableCell>
-                  <TableCell>{totalColumnWeight}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Full column weight</TableCell>
-                  <TableCell>{fullColumnWeight}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Partial column weight</TableCell>
-                  <TableCell>{partialColumnWeight}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Incomplete columns</TableCell>
-                  <TableCell>{incompleteColumns}</TableCell> */}
-                </TableRow>
-                <TableRow>
-                  {/* <TableCell>Complete columns</TableCell>
-                  <TableCell>{completeColumns}</TableCell> */}
-                </TableRow>
-              </TableBody>
-            </Table>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Property</TableHead>
+                <TableHead>Rows</TableHead>
+                <TableHead>Columns</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>Full dimensions</TableCell>
+                <TableCell>{`${fullRectangleHeight} ranks`}</TableCell>
+                <TableCell>{`${fullRectangleWidth} columns`}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Partial dimensions</TableCell>
+                <TableCell>{`${partialRectangleHeight} rank`}</TableCell>
+                <TableCell>{`${partialRectangleWidth} columns`}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Barycenter of full</TableCell>
+                <TableCell>{barycenterFullRectangleRank.toFixed(2)}</TableCell>
+                <TableCell>{barycenterFullRectangleColumn.toFixed(2)}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Barycenter of partial</TableCell>
+                <TableCell>{barycenterPartialRectangleRank.toFixed(2)}</TableCell>
+                <TableCell>{barycenterPartialRectangleColumn.toFixed(2)}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Barycenter (Global)</TableCell>
+                <TableCell>{barycenterPositionRank.toFixed(2)}</TableCell>
+                <TableCell>{barycenterPositionColumn.toFixed(2)}</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
           </CardContent>
         </Card>
 
