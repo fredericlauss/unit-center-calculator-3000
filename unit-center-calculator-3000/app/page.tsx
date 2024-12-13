@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ChangeEvent, useState } from "react";
 
 export default function Home() {
   const [totalRanks, setTotalRanks] = useState(0); // C2
@@ -43,36 +45,33 @@ export default function Home() {
       <h1 className="text-xl font-bold mb-4">Barycenter Calculator</h1>
       <div className="grid grid-cols-1 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-2">
-            Total number of ranks (C2):
-          </label>
-          <input
+          <Label>Total number of ranks (C2):</Label>
+          <Input
             type="number"
             value={totalRanks}
-            onChange={(e) => setTotalRanks(parseInt(e.target.value) || 0)}
-            className="border rounded px-3 py-2 w-full"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setTotalRanks(parseInt(e.target.value) || 0)
+            }
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">
-            Total number of columns (C3):
-          </label>
-          <input
+          <Label>Total number of columns (C3):</Label>
+          <Input
             type="number"
             value={totalColumns}
-            onChange={(e) => setTotalColumns(parseInt(e.target.value) || 0)}
-            className="border rounded px-3 py-2 w-full"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setTotalColumns(parseInt(e.target.value) || 0)
+            }
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-2">
-            Number of minis on the last rank (C4):
-          </label>
-          <input
+          <Label>Number of minis on the last rank (C4):</Label>
+          <Input
             type="number"
             value={minisOnLastRank}
-            onChange={(e) => setMinisOnLastRank(parseInt(e.target.value) || 0)}
-            className="border rounded px-3 py-2 w-full"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setMinisOnLastRank(parseInt(e.target.value)  || 0)
+            }
           />
         </div>
       </div>
