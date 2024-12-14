@@ -3,28 +3,26 @@ services:
   app:
     build: ./unit-center-calculator-3000
     restart: always
-    environment:
-      NODE_ENV: production
-    expose:
-      - "3000" # Exposé à Nginx, mais pas directement à l'extérieur
-
-  nginx:
-    image: nginx:alpine
-    restart: always
     ports:
-      - "80:80"   # HTTP
-      - "443:443" # HTTPS
-    volumes:
-      - ./nginx/conf:/etc/nginx/conf.d:ro # Configuration Nginx
-      - ./nginx/certs:/etc/letsencrypt # Certificats SSL
-      - ./nginx/www:/var/www/html # Fichiers nécessaires pour Certbot (challenge)
-    depends_on:
-      - app
+      - "3000:3000"
 
-  certbot:
-    image: certbot/certbot
-    restart: unless-stopped
-    volumes:
-      - ./nginx/certs:/etc/letsencrypt
-      - ./nginx/www:/var/www/html
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 6h & wait $!; certbot renew; done'"
+  # nginx:
+  #   image: nginx:alpine
+  #   restart: always
+  #   ports:
+  #     - "80:80"   # HTTP
+  #     - "443:443" # HTTPS
+  #   volumes:
+  #     - ./nginx/conf:/etc/nginx/conf.d:ro # Configuration Nginx
+  #     - ./nginx/certs:/etc/letsencrypt # Certificats SSL
+  #     - ./nginx/www:/var/www/html # Fichiers nécessaires pour Certbot (challenge)
+  #   depends_on:
+  #     - app
+
+  # certbot:
+  #   image: certbot/certbot
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./nginx/certs:/etc/letsencrypt
+  #     - ./nginx/www:/var/www/html
+  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 6h & wait $!; certbot renew; done'"
