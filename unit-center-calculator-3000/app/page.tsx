@@ -87,12 +87,12 @@ export default function Home() {
     };
 
   return (
-    <div className="py-[75px]">
+    <div className="py-[25px] md:py-[75px]">
       <div className="mx-auto max-w-[1350px] box-border">
-        <div className="flex-1 p-4 flex flex-row flex-wrap gap-[15px]">
+        <div className="flex-1 p-2 md:p-4 flex flex-row flex-wrap gap-[8px] md:gap-[15px]">
         <h1 className="text-xl font-bold mb-4 basis-[100%]">Unit center calculator 3000</h1>
 
-        <Card className="basis-1/4 grow mt-0">
+        <Card className="basis-3/4 md:basis-1/4 grow mt-0">
           <CardHeader>
             <CardTitle>Barycenter Calculator</CardTitle>
             <CardDescription>Input your unit dimensions</CardDescription>
@@ -132,7 +132,7 @@ export default function Home() {
         </Card>
 
         {/* Barycenter Coordinates */}
-        <Card className="basis-1/4 grow mt-0">
+        <Card className="basis-3/4 md:basis-1/4 grow mt-0">
           <CardHeader>
             <CardTitle>Barycenter Coordinates</CardTitle>
           </CardHeader>
@@ -159,7 +159,7 @@ export default function Home() {
         </Card>
 
         {/* Unit schema */}
-        <Card className="basis-1/4 grow mt-0 relative">
+        <Card className="basis-3/4 md:basis-1/4 grow mt-0 relative">
           <CardHeader>
             <CardTitle>Schema</CardTitle>
           </CardHeader>
@@ -167,10 +167,10 @@ export default function Home() {
             <div className="relative w-fit">
               <div className="flex flex-col items-start w-fit">{createSchema()}</div>
               <div
-                  className="absolute bg-red-500 w-4 h-4 rounded-full"
+                  className="absolute bg-red-500 w-2 h-2 rounded-full"
                   style={{
-                    top: `${barycenterY - 8}px`,
-                    left: `${barycenterX - 8}px`,
+                    top: `${barycenterY - 4}px`,
+                    left: `${barycenterX - 4}px`,
                   }}
               ></div>
             </div>
@@ -179,7 +179,7 @@ export default function Home() {
         </Card>
 
         {/* Table for Details */}
-        <Card className="basis-1/3 grow mt-0">
+        <Card className="basis-3/4 md:basis-1/3 grow mt-0">
           <CardHeader>
             <CardTitle>Details</CardTitle>
           </CardHeader>
