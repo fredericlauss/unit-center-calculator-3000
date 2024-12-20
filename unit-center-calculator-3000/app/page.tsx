@@ -25,7 +25,7 @@ export default function Home() {
   const [totalColumns, setTotalColumns] = useState(0); 
   const [minisOnLastRank, setMinisOnLastRank] = useState(0); 
 
-  const SQUARE_SIZE = 10;
+  const SQUARE_SIZE = 20;
 
   // Dimensions des rectangles
   const fullRectangleWidth = totalColumns;
